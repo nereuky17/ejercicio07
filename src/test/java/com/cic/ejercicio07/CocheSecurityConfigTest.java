@@ -25,6 +25,7 @@ public class CocheSecurityConfigTest {
      * Prueba que verifica que al intentar acceder al endpoint "/coches" sin autenticación,
      * la respuesta sea HTTP 401 Unauthorized.
      */
+    
     @Test
     public void whenAccessCochesWithoutAuthentication_thenUnauthorized() throws Exception {
         mockMvc.perform(get("/coches"))
