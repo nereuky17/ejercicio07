@@ -7,10 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 
 import com.cic.ejercicio07.model.Coche;
 import com.cic.ejercicio07.repository.CocheRepository;
 
+@Service
 public class CocheService {
 
     @Autowired
@@ -64,6 +66,7 @@ public class CocheService {
      * @param size El tamaño de la página (número de elementos por página).
      * @return Una página de coches.
      */
+    @PreAuthorize("isAuthenticated()")
     public Page<Coche> listarCoches(int page, int size) {
         return cocheRepository.findAll(PageRequest.of(page, size));
     }

@@ -77,9 +77,5 @@ public class CocheController {
         Page<Coche> coches = cocheService.listarCoches(page, size);
         return ResponseEntity.ok(coches);
     }
-
-    @GetMapping("/public")
-    public String publicEndpoint() {
-        return "This is a public endpoint";
-    }
 }
+ 
