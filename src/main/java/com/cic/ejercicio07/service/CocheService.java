@@ -6,14 +6,27 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.cic.ejercicio07.model.Coche;
 import com.cic.ejercicio07.repository.CocheRepository;
 
 public class CocheService {
 
-@Autowired
+    @Autowired
     private CocheRepository cocheRepository;
+
+    /*
+     * Lógica para obtener el coche por ID.
+     *
+     * @param id El ID del coche que se desea obtener.
+     * @return El coche correspondiente al ID.
+     */
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Coche getCocheById(Long id) {
+        return cocheRepository.findById(id).orElse(null);
+    }
+
 
     /**
      * Añade un nuevo coche al sistema.
