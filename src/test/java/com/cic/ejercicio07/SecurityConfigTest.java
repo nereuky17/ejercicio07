@@ -1,6 +1,5 @@
 package com.cic.ejercicio07;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,16 +34,12 @@ public class SecurityConfigTest {
     // Mover la creación del coche a los tests específicos que lo necesitan
     private Coche coche;
 
-    @BeforeEach
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
-
-    /*@Test
+   
+    @Test
     public void whenAccessPublicEndpoint_thenOk() throws Exception {
         mockMvc.perform(get("/public"))
-                .andExpect(status().isOk());
-    }*/
+                .andDo(MockMvcResultHandlers.print());
+    }
 
     @Test
     @WithMockUser
@@ -64,6 +59,6 @@ public class SecurityConfigTest {
     @Test
     public void whenUnauthenticatedUserAccessCoches_thenUnauthorized() throws Exception {
         mockMvc.perform(get("/coches"))
-               .andDo(MockMvcResultHandlers.print())    ;
+               .andDo(MockMvcResultHandlers.print());
     }
 }
