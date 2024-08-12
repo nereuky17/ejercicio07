@@ -1,10 +1,12 @@
 package com.cic.ejercicio07.controller;
 
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +22,13 @@ import com.cic.ejercicio07.service.CocheService;
 
 @RestController
 @RequestMapping("/coches")
+@AutoConfigureMockMvc
 public class CocheController {
 
 @Autowired
     private CocheService cocheService;
+
+
 
     /**
      * Endpoint para añadir un nuevo coche.
@@ -73,9 +78,11 @@ public class CocheController {
      * @return Una página de coches.
      */
     @GetMapping
+    @PreAuthorize("isAuthenticated()") // Verifica que el usuario esté autenticado
     public ResponseEntity<Page<Coche>> listarCoches(@RequestParam int page, @RequestParam int size) {
         Page<Coche> coches = cocheService.listarCoches(page, size);
         return ResponseEntity.ok(coches);
     }
+
 }
  
